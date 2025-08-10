@@ -2,7 +2,7 @@ import os
 
 def get_files_info(working_directory, directory="."):
     retstring = ""
-    if os.path.isdir(os.path.getpath(directory):
+    if os.path.isdir(os.path.getpath(directory)):
         abs_p_wd = os.path.abspath(working_directory)
         abs_p_d = os.path.abspath(direcotry)
         if abs_p_wd == os.path.commonpath([abs_p_wd, abs_p_d]):
