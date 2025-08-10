@@ -2,12 +2,12 @@ import os
 
 def get_files_info(working_directory, directory="."):
     retstring = ""
-    if os.path.isdir(directory):
-        abs_p_wd = os.path.abspath(working_directory)
-        abs_p_d = os.path.abspath(directory)
-        if abs_p_d.startswith(abs_p_wd):
-            my_dir = os.path.join(working_directory, diretory)
-            if os.path.exists(my_dir):
+    abs_p_wd = os.path.abspath(working_directory)
+    abs_p_d = os.path.abspath(directory)
+    if abs_p_d.startswith(abs_p_wd):
+        my_dir = os.path.join(working_directory, diretory)
+        if os.path.exists(my_dir):
+            if os.path.isdir(mydir):
                 items = os.listdir(my_dir)
                 if len(items) > 0:
                     retstring = "Result for current directory:\n"
@@ -29,10 +29,11 @@ def get_files_info(working_directory, directory="."):
                 else:
                     return f"Error: no items found in {directory}\n"
             else:
-                f'Error: "{directory}" does not exist\n'
+                return f'Error: "{directory}" is not a directory\n'        
         else:
-            return f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
+            f'Error: "{directory}" does not exist\n'
     else:
-        return f'Error: "{directory}" is not a directory\n'
+        eturn f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
+
     return retsrring
 
