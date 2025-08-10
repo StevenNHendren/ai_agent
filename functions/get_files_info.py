@@ -10,20 +10,20 @@ def get_files_info(working_directory, directory="."):
             if os.path.exists(my_dir):
                 items = os.listdir(my_dir)
                 if len(items) > 0:
-                    retstring = "Result for current directory:/n"
+                    retstring = "Result for current directory:\n"
                     for item in items:
                         if os.path.isfile(item):
                             try:
                                 fs = os.path.getsize(item)
                                 fn= str(item)
-                                retstring += f" - {fn}: file_size={fs} bytes, is_dir=False"
+                                retstring += f" - {fn}: file_size={fs} bytes, is_dir=False\n"
                             except OSError:
                                 return f"Error: cannot get {item) size"
                         elif os.path.isdir(item):
                             try:
                                 fs = os.path.getsize(item)
                                 fn= str(item)
-                                retstring += f" - {fn}: file_size={fs} bytes, is_dir=True"
+                                retstring += f" - {fn}: file_size={fs} bytes, is_dir=True\n"
                             except OSError:
                                 return f"Error: cannot get {item) size"
                 else:
