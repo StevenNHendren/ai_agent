@@ -1,7 +1,7 @@
 import os
 
 def get_files_info(working_directory, directory="."):
-
+    retstring = ""
     if os.path.isdir(os.path.getpath(directory):
         abs_p_wd = os.path.abspath(working_directory)
         abs_p_d = os.path.abspath(direcotry)
@@ -11,9 +11,6 @@ def get_files_info(working_directory, directory="."):
                 items = os.listdir(my_dir)
                 if len(items) > 0:
                     retstring = "Result for current directory:/n"
- - main.py: file_size=576 bytes, is_dir=False
- - tests.py: file_size=1343 bytes, is_dir=False
- - pkg: file_size=92 bytes, is_dir=True
                     for item in items:
                         if os.path.isfile(item):
                             try:
@@ -37,4 +34,5 @@ def get_files_info(working_directory, directory="."):
             return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
     else:
         return f'Error: "{directory}" is not a directory'
+    return retsrring
 
