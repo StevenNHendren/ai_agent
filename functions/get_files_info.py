@@ -10,7 +10,7 @@ def get_files_info(working_directory, directory="."):
     if abs_p_d.startswith(abs_p_wd):
         my_dir = os.path.join(working_directory, directory)
         if os.path.exists(my_dir):
-            if os.path.isdir(mydir):
+            if os.path.isdir(my_dir):
                 items = os.listdir(my_dir)
                 if len(items) > 0:
                     retstring = "Result for current directory:\n"
