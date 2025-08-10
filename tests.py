@@ -1,6 +1,6 @@
 from functions.get_files_info import get_files_info
 
-def main();
+def main():
   retstring = get_files_info("calculator", ".")
 
   retstring += get_files_info("calculator", "pkg")
