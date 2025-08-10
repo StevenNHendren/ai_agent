@@ -10,3 +10,5 @@ def main();
   retstring += get_files_info("calculator", "../")
   
   print(retstring)
+
+main()
