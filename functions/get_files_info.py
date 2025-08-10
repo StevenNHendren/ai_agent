@@ -4,7 +4,7 @@ def get_files_info(working_directory, directory="."):
     retstring = ""
     if os.path.isdir(directory):
         abs_p_wd = os.path.abspath(working_directory)
-        abs_p_d = os.path.abspath(direcotry)
+        abs_p_d = os.path.abspath(directory)
         if abs_p_wd == os.path.commonpath([abs_p_wd, abs_p_d]):
             my_dir = os.path.join(working_directory, diretory)
             if os.path.exists(my_dir):
