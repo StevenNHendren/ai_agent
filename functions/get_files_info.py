@@ -33,7 +33,7 @@ def get_files_info(working_directory, directory="."):
         else:
             f'Error: "{directory}" does not exist\n'
     else:
-        eturn f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
+        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
 
     return retsrring
 
