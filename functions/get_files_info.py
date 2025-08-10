@@ -18,21 +18,21 @@ def get_files_info(working_directory, directory="."):
                                 fn= str(item)
                                 retstring += f" - {fn}: file_size={fs} bytes, is_dir=False\n"
                             except OSError:
-                                return f"Error: cannot get {item} size"
+                                return f"Error: cannot get {item} size\n"
                         elif os.path.isdir(item):
                             try:
                                 fs = os.path.getsize(item)
                                 fn= str(item)
                                 retstring += f" - {fn}: file_size={fs} bytes, is_dir=True\n"
                             except OSError:
-                                return f"Error: cannot get {item} size"
+                                return f"Error: cannot get {item} size\n"
                 else:
-                    return f"Error: no items found in {directory}"
+                    return f"Error: no items found in {directory}\n"
             else:
-                f'Error: "{directory}" does not exist'
+                f'Error: "{directory}" does not exist\n'
         else:
-            return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
+            return f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
     else:
-        return f'Error: "{directory}" is not a directory'
+        return f'Error: "{directory}" is not a directory\n'
     return retsrring
 
