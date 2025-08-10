@@ -3,9 +3,9 @@ import os
 def get_files_info(working_directory, directory="."):
     retstring = ""
     abs_p_wd = os.path.abspath(working_directory)
-    print(abs_p_wd)
+    #print(abs_p_wd)
     my_dir = os.path.join(working_directory, directory)
-    print(my_dir)
+    #print(my_dir)
     abs_p_d = os.path.abspath(my_dir)
     if abs_p_d.startswith(abs_p_wd):
         my_dir = os.path.join(working_directory, directory)
