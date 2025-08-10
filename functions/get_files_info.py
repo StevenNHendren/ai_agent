@@ -18,14 +18,14 @@ def get_files_info(working_directory, directory="."):
                                 fn= str(item)
                                 retstring += f" - {fn}: file_size={fs} bytes, is_dir=False\n"
                             except OSError:
-                                return f"Error: cannot get {item) size"
+                                return f"Error: cannot get {item} size"
                         elif os.path.isdir(item):
                             try:
                                 fs = os.path.getsize(item)
                                 fn= str(item)
                                 retstring += f" - {fn}: file_size={fs} bytes, is_dir=True\n"
                             except OSError:
-                                return f"Error: cannot get {item) size"
+                                return f"Error: cannot get {item} size"
                 else:
                     return f"Error: no items found in {directory}"
             else:
