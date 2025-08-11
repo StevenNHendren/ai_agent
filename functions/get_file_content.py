@@ -4,12 +4,13 @@ from config import *
 def get_file_content(working_directory, file_path):
   retstring = ""
   my_file = os.path.join(working_directory, file_path)
-
+  oversize = ""
   if abs_p_d.startswith(os.path.abspath(my_dir)):
     if os.path.isfile(my_file):
-      MAX_CHARS = 10000
-      with open(file_path, "r") as f:
-        file_content_string = f.read(MAX_CHARS)
+      if (os.path.getsize(my_file) > MAX_CHARS):
+        oversize = f"[...File "{file_path}" truncated at 10000 characters]"
+      with open(my_file, "r") as f:
+        retstring = f.read(MAX_CHARS)
     else:
       return f'Error: File not found or is not a regular file: "{file_path}"'
   else:
