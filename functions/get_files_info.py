@@ -15,6 +15,7 @@ def get_files_info(working_directory, directory="."):
                 if len(items) > 0:
                     retstring = "Result for current directory:\n"
                     for item in items:
+                        print(item)
                         if os.path.isfile(item):
                             try:
                                 fs = os.path.getsize(item)
@@ -23,7 +24,7 @@ def get_files_info(working_directory, directory="."):
                             except OSError:
                                 return f"Error: cannot get {item} size\n"
                         elif os.path.isdir(item):
-                            print("FOUND DIRECTORY")
+
                             try:
                                 fs = os.path.getsize(item)
                                 fn= str(item)
