@@ -3,13 +3,22 @@ import subprocess
 
 def run_python_file(working_directory, file_path, args=[]):
   abs_p_wd = os.path.abspath(working_directory)
-  my_dir = os.path.join(working_directory, directory)
-  abs_p_d = os.path.abspath(my_dir)
-  if abs_p_d.startswith(abs_p_wd):
-    if os.path.exists(my_dir):
+  my_file = os.path.join(working_directory, file_path)
+  abs_p_f = os.path.abspath(my_file)
+  if abs_p_f.startswith(abs_p_wd):
+    if os.path.exists(my_file):
       if file_path.endswith(".py"):
         try:
-          pass
+          my_cpo = subprocess.run([my_file, args], capture_output=True, cwd=abs_p_wd, timeout=30)
+          if my_cpo.stdout == None:
+            ret_str = "No output produced."
+          else:
+            ret_str += f"STDOUT: {my_cpo.STDOUT}\n"
+          ret_str += f"STDERR: {my_cpo.STDERR}\n"
+          icode = my_cpo.returncode
+          if icode != 0:
+            ret_str += f"Process exited with code {icode}\n"
+          return ret_str
         catch Exception as e:
           return f"Error: executing Python file: {e}"
       else:
