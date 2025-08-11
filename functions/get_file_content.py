@@ -4,3 +4,5 @@ def get_file_content(working_directory, file_path):
 
   if abs_p_d.startswith(os.path.abspath(my_dir)):
     pass
+  else:
+    f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
