@@ -15,11 +15,11 @@ def get_files_info(working_directory, directory="."):
                 if len(items) > 0:
                     retstring = "Result for current directory:\n"
                     for item in items:
-                        print(item)
+                        # print(item)
                         try:
-                            is_dir = os.path.isdir(item)
+                            is_dir = os.path.isdir(os.path.join(mydir, item))
                             print(is_dir)
-                            fs = os.path.getsize(item)
+                            fs = os.path.getsize(os.path.join(mydir, item)
                             print(fs)
                             fn= str(item)
                             print(fn)                            
