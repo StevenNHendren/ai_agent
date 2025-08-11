@@ -1,2 +1,3 @@
 def get_file_content(working_directory, file_path):
-  pass
+  retstring = ""
+  my_file = os.path.join(working_directory, file_path)
