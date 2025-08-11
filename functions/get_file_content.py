@@ -1,4 +1,5 @@
 import os
+from config import *
 
 def get_file_content(working_directory, file_path):
   retstring = ""
