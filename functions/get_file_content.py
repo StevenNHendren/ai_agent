@@ -1,5 +1,5 @@
 import os
-from config import *
+from functions.config import *
 
 def get_file_content(working_directory, file_path):
   retstring = ""
