@@ -22,7 +22,7 @@ def get_files_info(working_directory, directory="."):
                                 retstring += f" - {fn}: file_size={fs} bytes, is_dir=False\n"
                             except OSError:
                                 return f"Error: cannot get {item} size\n"
-                        elif os.path.isdir(item):
+                        else:  # elif os.path.isdir(item):
                             print("FOUND DIRECTORY")
                             try:
                                 fs = os.path.getsize(item)
