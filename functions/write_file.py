@@ -9,10 +9,10 @@ def write_file(working_directory, file_path, content):
     try:
       with open(my_file, "w") as f:
         bytes_written = f.write(content)
-        return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
-      except PermissionError:
-        return(f"Error: You do not have permission to access '{my_file}'.")
-      except Exception as e:
-        return(f"Error: An unexpected error occurred: {e}")
+    except PermissionError:
+      return(f"Error: You do not have permission to access '{my_file}'.")
+    except Exception as e:
+      return(f"Error: An unexpected error occurred: {e}")
+    return f'Successfully wrote to "{file_path}" ({len(content)} characters written)' 
   else:
     return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'
