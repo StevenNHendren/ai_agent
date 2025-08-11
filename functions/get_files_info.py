@@ -17,9 +17,9 @@ def get_files_info(working_directory, directory="."):
                     for item in items:
                         # print(item)
                         try:
-                            is_dir = os.path.isdir(os.path.join(mydir, item))
+                            is_dir = os.path.isdir(os.path.join(my_dir, item))
                             print(is_dir)
-                            fs = os.path.getsize(os.path.join(mydir, item))
+                            fs = os.path.getsize(os.path.join(my_dir, item))
                             print(fs)
                             fn= str(item)
                             print(fn)                            
