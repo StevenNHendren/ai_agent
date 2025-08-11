@@ -19,7 +19,7 @@ def run_python_file(working_directory, file_path, args=[]):
           if icode != 0:
             ret_str += f"Process exited with code {icode}\n"
           return ret_str
-        catch Exception as e:
+        except Exception as e:
           return f"Error: executing Python file: {e}"
       else:
         return f'Error: "{file_path}" is not a Python file.'  
