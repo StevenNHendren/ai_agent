@@ -16,13 +16,13 @@ def get_files_info(working_directory, directory="."):
                     retstring = "Result for current directory:\n"
                     for item in items:
                         print(item)
-                            try:
-                                is_dir = os.path.isdir(item)
-                                fs = os.path.getsize(item)
-                                fn= str(item)
-                                retstring += f" - {fn}: file_size={fs} bytes, is_dir={is_dir}\n"
-                            except OSError:
-                                return f"Error: cannot get {item} size\n"
+                        try:
+                            is_dir = os.path.isdir(item)
+                            fs = os.path.getsize(item)
+                            fn= str(item)
+                            retstring += f" - {fn}: file_size={fs} bytes, is_dir={is_dir}\n"
+                        except OSError:
+                            return f"Error: cannot get {item} size\n"
                 else:
                     return f"Error: no items found in {directory}\n"
             else:
