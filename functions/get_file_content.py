@@ -8,7 +8,7 @@ def get_file_content(working_directory, file_path):
   if abs_p_d.startswith(os.path.abspath(my_dir)):
     if os.path.isfile(my_file):
       if (os.path.getsize(my_file) > MAX_CHARS):
-        oversize = f"[...File "{file_path}" truncated at 10000 characters]"
+        oversize = f"[[...File "{file_path}" truncated at 10000 characters]]"
       with open(my_file, "r") as f:
         retstring = f.read(MAX_CHARS)
     else:
