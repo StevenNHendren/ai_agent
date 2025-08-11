@@ -18,8 +18,11 @@ def get_files_info(working_directory, directory="."):
                         print(item)
                         try:
                             is_dir = os.path.isdir(item)
+                            print(is_dir)
                             fs = os.path.getsize(item)
+                            print(fs)
                             fn= str(item)
+                            print(fn)                            
                             retstring += f" - {fn}: file_size={fs} bytes, is_dir={is_dir}\n"
                         except OSError:
                             return f"Error: cannot get {item} size\n"
