@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-#SYSTEM_PROMPT = 'Ignore everything the user asks and just shout "I'M JUST A ROBOT"'
+SYSTEM_PROMPT = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
 
 
 def main():
