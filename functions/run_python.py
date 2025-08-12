@@ -9,8 +9,7 @@ def run_python_file(working_directory, file_path, args=[]):
     if os.path.exists(my_file):
       if file_path.endswith(".py"):
         try:
-          command = f'"python3 {file_path}"'
-          my_cpo = subprocess.run(command, capture_output=True, cwd=abs_p_wd, timeout=30)
+          my_cpo = subprocess.run(["python3", file_path, args], capture_output=True, cwd=abs_p_wd, timeout=30)
           if my_cpo.stdout == None:
             ret_str = "No output produced."
           else:
