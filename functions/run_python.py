@@ -5,6 +5,7 @@ def run_python_file(working_directory, file_path, args=[]):
   abs_p_wd = os.path.abspath(working_directory)
   my_file = os.path.join(working_directory, file_path)
   abs_p_f = os.path.abspath(my_file)
+  ret_str = ""
   if abs_p_f.startswith(abs_p_wd):
     if os.path.exists(my_file):
       if file_path.endswith(".py"):
