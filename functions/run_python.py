@@ -15,7 +15,7 @@ def run_python_file(working_directory, file_path, args=[]):
             ret_str = "No output produced."
           else:
             ret_str += f"STDOUT: {my_cpo.stdout}\n"
-          ret_str += f"STDERR: {my_cpo.STDERR}\n"
+          ret_str += f"STDERR: {my_cpo.stderr}\n"
           icode = my_cpo.returncode
           if icode != 0:
             ret_str += f"Process exited with code {icode}\n"
