@@ -13,6 +13,11 @@ schema_run_python_file = types.FunctionDeclaration(
                 type=types.Type.STRING,
                 description="The Python file (path), relative to the working directory.",
             ),
+            "args": types.Schema(
+                type=types.Type.LIST,
+                default = None
+                description="The arguments to pass to the Python file.",
+            ),
         },
     ),
 )
