@@ -46,7 +46,7 @@ def main():
         sys.exit(1)
     x = response.usage_metadata.prompt_token_count
     y = response.usage_metadata.candidates_token_count
-    calls - response.function_calls
+    calls = response.function_calls
     if calls != None:
         for function_call_part in calls:
             print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
