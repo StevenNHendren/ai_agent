@@ -7,12 +7,12 @@ from functions.get_file_content import get_file_content
 from functions.write_file import write_file
 from functions.run_python import run_python_file
 
-valid_function_names =  [
-    get_files_info,
-    get_file_content,
-    write_file,
-    run_python_file
-]
+valid_function_names = {
+    "get_files_info": get_files_info,
+    "get_file_content": get_file_content,
+    "get_file_content": write_file,
+    "run_python_file": run_python_file
+}
 
 def call_function(function_call_part, verbose=False):
   if verbose:
