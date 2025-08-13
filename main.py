@@ -7,6 +7,7 @@ from functions.get_files_info import schema_get_files_info
 from functions.get_file_content import schema_get_file_content
 from functions.write_file import schema_write_file
 from functions.run_python import schema_run_python_file
+from functions.call_function import call_function
 
 #system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
 system_prompt = """
@@ -59,6 +60,7 @@ def main():
     if calls != None:
         for function_call_part in calls:
             print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
+            call
     print(response.text)
     if (len(sys.argv) > 2):
         if (sys.argv[2] == "--verbose"):
