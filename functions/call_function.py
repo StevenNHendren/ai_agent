@@ -19,7 +19,7 @@ valid_functions = {
 def call_function(function_call_part, verbose=False):
     if verbose:
         print(f"Calling function: {function_call_part.name}({function_call_part.args})")
-      else:
+    else:
         print(f" - Calling function: {function_call_part.name}")
 
     function_name = function_call_part.name
