@@ -3,22 +3,29 @@ import subprocess
 from google import genai
 from google.genai import types
 
+valid_function_names =  [
+    get_files_info,
+    get_file_content,
+    write_file,
+    run_python_file
+]
+
 def call_function(function_call_part, verbose=False):
   if verbose:
     print(f"Calling function: {function_call_part.name}({function_call_part.args})")
   else:
     print(f" - Calling function: {function_call_part.name}")
 
-  #if function name is invalid
-  return types.Content(
-    role="tool",
-    parts=[
-        types.Part.from_function_response(
-            name=function_name,
-            response={"error": f"Unknown function: {function_name}"},
-        )
-    ],
-  )
+  if function_call_part.name not in valid_function_names:
+    return types.Content(
+      role="tool",
+      parts=[
+          types.Part.from_function_response(
+              name=function_name,
+              response={"error": f"Unknown function: {function_name}"},
+          )
+      ],
+    )
 
   
   return types.Content(
