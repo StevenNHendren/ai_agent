@@ -7,7 +7,7 @@ from functions.get_file_content import get_file_content
 from functions.write_file import write_file
 from functions.run_python import run_python_file
 
-valid_function_names = {
+valid_functions = {
     "get_files_info": get_files_info,
     "get_file_content": get_file_content,
     "get_file_content": write_file,
@@ -20,7 +20,7 @@ def call_function(function_call_part, verbose=False):
   else:
     print(f" - Calling function: {function_call_part.name}")
 
-  if function_call_part.name not in valid_function_names:
+  if function_call_part.name not in valid_functions:
     return types.Content(
       role="tool",
       parts=[
