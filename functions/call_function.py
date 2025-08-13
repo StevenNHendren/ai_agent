@@ -24,7 +24,7 @@ def call_function(function_call_part, verbose=False):
 
     function_name = function_call_part.name
     args = function_call_part.args  
-    if f./calculator not in valid_functions:
+    if function_name not in valid_functions:
         return types.Content(
           role="tool",
           parts=[
