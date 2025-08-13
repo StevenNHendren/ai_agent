@@ -62,7 +62,7 @@ def main():
             print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
             function_call_result = call_function(function_call_part.name, function_call_part.args)
             if function_call_result.parts[0].function_response.response == None:
-                raise Exception(f"fatal error executing function {function_call_part.name})
+                raise Exception(f"fatal error executing function {function_call_part.name}")
             if (len(sys.argv) > 2):
                 if (sys.argv[2] == "--verbose"):
                     print(f"-> {function_call_result.parts[0].function_response.response}")
