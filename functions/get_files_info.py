@@ -1,4 +1,5 @@
 import os
+import types
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
