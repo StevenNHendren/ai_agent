@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from functions.get_files_info import schema_get_files_info
+from functions.get_file_content import schema_get_file_content
+from functions.write_file import schema_write_file
+from functions.run_python import schema_
 
 #system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
 system_prompt = """
