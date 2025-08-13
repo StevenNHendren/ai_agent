@@ -4,7 +4,7 @@ from google import genai
 from google.genai import types
 
 schema_get_file_content = types.FunctionDeclaration(
-    name="get_files_content",
+    name="get_file_content",
     description="Returns the content of the specified file, truncated at 10000 characters, constrained to the working directory.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
