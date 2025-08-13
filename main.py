@@ -58,7 +58,8 @@ def main():
     y = response.usage_metadata.candidates_token_count
     calls = response.function_calls
     if calls != None:
-        for function_call_part in calls:
+        for call in calls:
+            function_call_part = types.functioncall(name=call, 
             print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
             function_call_result = call_function(function_call_part.name, function_call_part.args)
             if function_call_result.parts[0].function_response.response == None:
