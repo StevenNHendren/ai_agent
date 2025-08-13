@@ -49,7 +49,7 @@ def main():
     calls - response.function_calls
     if calls != None:
         for function_call_part in calls:
-            print f"Calling function: {function_call_part.name}({function_call_part.args}) \n"
+            print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
     print(response.text)
     if (len(sys.argv) > 2):
         if (sys.argv[2] == "--verbose"):
