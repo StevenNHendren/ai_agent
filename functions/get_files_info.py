@@ -1,5 +1,5 @@
 import os
-import genai
+import genai.types
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
