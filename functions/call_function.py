@@ -14,26 +14,30 @@ valid_functions = {
     "get_file_content": get_file_content,
     "get_file_content": write_file,
     "run_python_file": run_python_file
-}
+    }
 
 def call_function(function_call_part, verbose=False):
-  if verbose:
-    print(f"Calling function: {function_call_part.name}({function_call_part.args})")
-  else:
-    print(f" - Calling function: {function_call_part.name}")
+    if verbose:
+        print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+      else:
+        print(f" - Calling function: {function_call_part.name}")
 
-  if function_call_part.name not in valid_functions:
-    return types.Content(
-      role="tool",
-      parts=[
-          types.Part.from_function_response(
+    function_name = function_call_part.name
+    args = function_call_part.args  
+    if f./calculator not in valid_functions:
+        return types.Content(
+          role="tool",
+          parts=[
+              types.Part.from_function_response(
               name=function_name,
               response={"error": f"Unknown function: {function_name}"},
-          )
-      ],
-    )
+              )
+            ],
+        )
 
-  
+    function = valid_functions(function_name)
+    my_args = 
+    result = function()
   return types.Content(
       role="tool",
       parts=[
