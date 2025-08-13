@@ -48,7 +48,8 @@ def main():
     y = response.usage_metadata.candidates_token_count
     calls - response.function_calls
     if calls != None:
-        print f"Calling function: {function_call_part.name}({function_call_part.args})"
+        for function_call_part in calls:
+            print f"Calling function: {function_call_part.name}({function_call_part.args}) \n"
     print(response.text)
     if (len(sys.argv) > 2):
         if (sys.argv[2] == "--verbose"):
