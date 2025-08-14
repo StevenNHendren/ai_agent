@@ -7,7 +7,7 @@ from functions.get_file_content import get_file_content
 from functions.write_file import write_file
 from functions.run_python import run_python_file
 
-#working_directory = "./calculator"
+WORKING_DIR = "./calculator"
 
 valid_functions = {
     "get_files_info": get_files_info,
@@ -23,8 +23,9 @@ def call_function(function_call_part, verbose=False):
         print(f" - Calling function: {function_call_part.name}")
 
     function_name = function_call_part.name
-    args = function_call_part.args  
-    print(args)
+    args = dict(function_call_part.args)
+    args["working_directory"] = WORKING_DIR
+
     if function_name not in valid_functions:
         return types.Content(
           role="tool",
@@ -37,8 +38,9 @@ def call_function(function_call_part, verbose=False):
         )
 
     function = valid_functions[function_name]
-    arg_wd = { "working_directory": "./calculator" }
+
     function_result = function(**args)
+    #function_result = function_map[function_name](**args)
     return types.Content(
       role="tool",
       parts=[
