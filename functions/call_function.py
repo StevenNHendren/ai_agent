@@ -12,7 +12,7 @@ WORKING_DIR = "./calculator"
 valid_functions = {
     "get_files_info": get_files_info,
     "get_file_content": get_file_content,
-    "get_file_content": write_file,
+    "write_file": write_file,
     "run_python_file": run_python_file
     }
 
