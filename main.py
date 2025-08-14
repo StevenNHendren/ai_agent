@@ -74,28 +74,28 @@ def main():
             if function_call_result.parts[0].function_response.response == None:
                 raise Exception(f"fatal error executing function {function_call_part.name}")
             
-# After collecting function_responses, you need to:
+    # After collecting function_responses, you need to:
 
-# Add the function call and responses to the conversation
-messages.append(types.Content(role="model", parts=response.function_calls))
-messages.append(types.Content(role="function", parts=function_responses))
+    # Add the function call and responses to the conversation
+    messages.append(types.Content(role="model", parts=response.function_calls))
+    messages.append(types.Content(role="function", parts=function_responses))
 
-# Make another call to get the final response
-final_response = client.models.generate_content(
-    model="gemini-2.0-flash-001",
-    contents=messages,
-    config=types.GenerateContentConfig(
-        tools=[available_functions], system_instruction=system_prompt
-    ),
-)
-
-# Return or print the final response
-return final_response.text
-    if (len(sys.argv) > 2):
-        if (sys.argv[2] == "--verbose"):
-            print (f"User prompt: {user_prompt}")
-            print(f"Prompt tokens: {x}")
-            print(f"Response tokens: {y}")
+    # Make another call to get the final response
+    final_response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=messages,
+        config=types.GenerateContentConfig(
+            tools=[available_functions], system_instruction=system_prompt
+        ),
+    )
+    print.response
+    # Return or print the final response
+    return final_response.text
+        if (len(sys.argv) > 2):
+            if (sys.argv[2] == "--verbose"):
+                print (f"User prompt: {user_prompt}")
+                print(f"Prompt tokens: {x}")
+                print(f"Response tokens: {y}")
 
 if __name__ == "__main__":
     main()
