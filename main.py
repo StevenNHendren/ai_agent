@@ -62,7 +62,6 @@ def main():
         for call in calls:
             new_args = copy.deepcopy(call.args)
             new_args["working_directory"] = "./calculator"
-            rgs["working_directory"] = "./calculator"
             fc = genai.types.FunctionCall(
                 name=call.name,
                 args=new_args
