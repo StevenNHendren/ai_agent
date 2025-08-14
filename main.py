@@ -62,6 +62,7 @@ def main():
             fc = genai.types.FunctionCall(
                 name=call.name,
                 args=call.args
+                args["working_directory"] = "./calculator"
             )  
             print(call.args)
             print(f"Calling function: {fc.name}({fc.args}) \n")
