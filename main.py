@@ -59,7 +59,7 @@ def main():
     calls = response.function_calls
     if calls != None:
         for call in calls:
-            fc = genai.types.functioncall(
+            fc = genai.types.FunctionCall(
                 name=call.name,
                 args=call.args
             )                                      
