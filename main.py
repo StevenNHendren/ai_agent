@@ -34,7 +34,7 @@ def main():
             schema_get_files_info,
             schema_get_file_content,
             schema_write_file,
-            schema_run_python_file,
+            schema_run_python_file
         ]
     )
     if (len(sys.argv) > 1):
@@ -59,7 +59,7 @@ def main():
     calls = response.function_calls
     if calls != None:
         for call in calls:
-            print(f"{call.name} in {calls}")
+            print(f"call: {call} call.name: {call.name} in calls: {calls}")
             fc = genai.types.FunctionCall(
                 name=call.name,
                 args=call.args
