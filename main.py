@@ -34,7 +34,7 @@ def main():
             schema_get_files_info,
             schema_get_file_content,
             schema_write_file,
-            schema_run_python_file
+            schema_run_python_file,
         ]
     )
     if (len(sys.argv) > 1):
