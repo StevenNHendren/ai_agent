@@ -37,7 +37,7 @@ def call_function(function_call_part, verbose=False):
 
     function = valid_functions[function_name]
     arg_wd = { "working_directory": "./calculator" }
-    function_result = function(*args, **arg_wd)
+    function_result = function(**args)
     return types.Content(
       role="tool",
       parts=[
