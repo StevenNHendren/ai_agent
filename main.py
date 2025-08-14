@@ -66,7 +66,7 @@ def main():
             print(f"Calling function: {fc.name}({fc.args}) \n")
             if (len(sys.argv) > 2):
                 if (sys.argv[2] == "--verbose"):
-                    function_call_result = call_function(fc, Verbose=True)
+                    function_call_result = call_function(fc, verbose=True)
                     print(f"-> {function_call_result.parts[0].function_response.response}")  
                 else:
                     function_call_result = call_function(fc)
