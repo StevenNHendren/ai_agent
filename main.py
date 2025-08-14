@@ -74,7 +74,7 @@ def main():
                     function_call_result = call_function(fc)
             if function_call_result.parts[0].function_response.response == None:
                 raise Exception(f"fatal error executing function {function_call_part.name}")
-            function_responses.append(function_call_result)
+            function_responses.append(function_call_result.parts[0].function_response.response)
     # After collecting function_responses, you need to:
 
     # Add the function call and responses to the conversation
