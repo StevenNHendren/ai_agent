@@ -73,8 +73,8 @@ def main():
                     function_call_result = call_function(fc)
             if function_call_result.parts[0].function_response.response == None:
                 raise Exception(f"fatal error executing function {function_call_part.name}")
-
-    print(response.text)
+            
+    #print(response.text)
     if (len(sys.argv) > 2):
         if (sys.argv[2] == "--verbose"):
             print (f"User prompt: {user_prompt}")
