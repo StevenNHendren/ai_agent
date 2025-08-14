@@ -59,12 +59,17 @@ def main():
     calls = response.function_calls
     if calls != None:
         for call in calls:
-            function_call_part = types.functioncall(name=call, 
-            print(f"Calling function: {function_call_part.name}({function_call_part.args}) \n")
+            fc = types.functioncall(
+                name=call.name,
+                args=call.args
+            )                                      
+            print(f"Calling function: {fc.name}({fc.args}) \n")
             if (len(sys.argv) > 2):
                 if (sys.argv[2] == "--verbose"):
-                    function_call_result = call_function(function_call_part.name, function_call_part.args)
+                    function_call_result = call_function(fc, "--verbose")
                     print(f"-> {function_call_result.parts[0].function_response.response}")  
+                else:
+                    function_call_result = call_function(fc, "")
             if function_call_result.parts[0].function_response.response == None:
                 raise Exception(f"fatal error executing function {function_call_part.name}")
 
