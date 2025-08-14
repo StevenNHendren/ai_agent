@@ -88,14 +88,14 @@ def main():
             tools=[available_functions], system_instruction=system_prompt
         ),
     )
-    print.response
+    #print.final_response.text
     # Return or print the final response
     return final_response.text
-        if (len(sys.argv) > 2):
-            if (sys.argv[2] == "--verbose"):
-                print (f"User prompt: {user_prompt}")
-                print(f"Prompt tokens: {x}")
-                print(f"Response tokens: {y}")
+    if (len(sys.argv) > 2):
+        if (sys.argv[2] == "--verbose"):
+            print (f"User prompt: {user_prompt}")
+            print(f"Prompt tokens: {x}")
+            print(f"Response tokens: {y}")
 
 if __name__ == "__main__":
     main()
