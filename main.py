@@ -29,6 +29,7 @@ def main():
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
+    function_responses = []
     available_functions = types.Tool(
         function_declarations=[
             schema_get_files_info,
@@ -73,7 +74,7 @@ def main():
                     function_call_result = call_function(fc)
             if function_call_result.parts[0].function_response.response == None:
                 raise Exception(f"fatal error executing function {function_call_part.name}")
-            
+            function_responses.append(function_call_result)
     # After collecting function_responses, you need to:
 
     # Add the function call and responses to the conversation
