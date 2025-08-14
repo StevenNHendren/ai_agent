@@ -62,6 +62,7 @@ def main():
             fc = genai.types.FunctionCall(
                 name=call.name,
                 args=call.args
+                print(args)
             )                                      
             print(f"Calling function: {fc.name}({fc.args}) \n")
             if (len(sys.argv) > 2):
