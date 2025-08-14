@@ -8,6 +8,7 @@ from functions.get_file_content import schema_get_file_content
 from functions.write_file import schema_write_file
 from functions.run_python import schema_run_python_file
 from functions.call_function import call_function
+import copy
 
 #system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
 system_prompt = """
@@ -59,10 +60,12 @@ def main():
     calls = response.function_calls
     if calls != None:
         for call in calls:
+            new_args = copy.deepcopy(call.args)
+            new_args["working_directory"] = "./calculator"
+            rgs["working_directory"] = "./calculator"
             fc = genai.types.FunctionCall(
                 name=call.name,
-                args=call.args
-                args["working_directory"] = "./calculator"
+                args=new_args
             )  
             print(call.args)
             print(f"Calling function: {fc.name}({fc.args}) \n")
