@@ -1,36 +1,42 @@
-import os
 import sys
-from dotenv import load_dotenv
+import os
 from google import genai
 from google.genai import types
-from functions.get_files_info import schema_get_files_info
-from functions.get_file_content import schema_get_file_content
-from functions.write_file import schema_write_file
-from functions.run_python import schema_run_python_file
-from functions.call_function import call_function
+from dotenv import load_dotenv
 
-#system_prompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
-system_prompt = """
-You are a helpful AI coding agent.
+from prompts import system_prompt
+from call_function import available_functions
 
-When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
 
-- List files and directories
-- Read file contents
-- Execute Python files with optional arguments
-- Write or overwrite files
+def main():
+    load_dotenv()
 
-All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
-"""
+    verbose = "--verbose" in sys.argv
+    args = []
+    for arg in sys.argv[1:]:
+        if not arg.startswith("--"):
+            args.append(arg)
 
-available_functions = types.Tool(
-    function_declarations=[
-        schema_get_files_info,
-        schema_get_file_content,
-        schema_write_file,
-        schema_run_python_file
+    if not args:
+        print("AI Code Assistant")
+        print('\nUsage: python main.py "your prompt here" [--verbose]')
+        print('Example: python main.py "How do I fix the calculator?"')
+        sys.exit(1)
+
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client(api_key=api_key)
+
+    user_prompt = " ".join(args)
+
+    if verbose:
+        print(f"User prompt: {user_prompt}\n")
+
+    messages = [
+        types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
-)
+
+    generate_content(client, messages, verbose)
+
 
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
@@ -45,73 +51,11 @@ def generate_content(client, messages, verbose):
         print("Response tokens:", response.usage_metadata.candidates_token_count)
 
     if not response.function_calls:
-        print(response.text)
         return response.text
 
-    function_responses = []
     for function_call_part in response.function_calls:
-        function_call_result = call_function(function_call_part, verbose)
-        if (
-            not function_call_result.parts
-            or not function_call_result.parts[0].function_response
-        ):
-            raise Exception("empty function call result")
-        if verbose:
-            print(f"-> {function_call_result.parts[0].function_response.response}")
-        function_responses.append(function_call_result.parts[0])
+        print(f"Calling function: {function_call_part.name}({function_call_part.args})")
 
-    if not function_responses:
-        raise Exception("no function responses generated, exiting.")
-
-    # Add the assistant's function calls to the conversation
-    messages.append(types.Content(role="model", parts=response.function_calls))
-    
-    # Add the function responses to the conversation
-    messages.append(types.Content(role="function", parts=function_responses))
-
-    # Make another call to get the final response
-    final_response = client.models.generate_content(
-        model="gemini-2.0-flash-001",
-        contents=messages,
-        config=types.GenerateContentConfig(
-            tools=[available_functions], system_instruction=system_prompt
-        ),
-    )
-    
-    print(final_response.text)
-    return final_response.text
-
-def main():
-    print("Hello from ai-agent!")
-    load_dotenv()
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client(api_key=api_key)
-    function_responses = []
-
-
-    if (len(sys.argv) > 1):
-        user_prompt = sys.argv[1]
-        if (user_prompt != ""):
-            messages = [
-            types.Content(role="user", parts=[types.Part(text=user_prompt)]),
-            ]
-            VerboseOutput = False
-            if (len(sys.argv) > 2):
-                if (sys.argv[2] == "--verbose"):
-                    VerboseOutput = True
-            response = generate_content(
-            client,
-            messages,
-            VerboseOutput
-            )
-        else:
-            print("Error: prompt not provided")
-            sys.exit(1)
-    else:
-        print("Error: prompt not provided")
-        sys.exit(1)
-    x = response.usage_metadata.prompt_token_count
-    y = response.usage_metadata.candidates_token_count
 
 if __name__ == "__main__":
     main()
