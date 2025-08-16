@@ -99,7 +99,7 @@ def main():
             response = generate_content(
             client,
             messages,
-            VerboseOutput)
+            VerboseOutput
             )
         else:
             print("Error: prompt not provided")
