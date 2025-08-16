@@ -71,7 +71,8 @@ def call_functionX(function_call_part, verbose=False):
             ],
         )    
 
-    args = dict(function_call_part.args)
+    #args = dict(function_call_part.args)
+    args = unction_call_part.args
     args["working_directory"] = WORKING_DIR
     
     function_result = function_map[function_name](**args)
