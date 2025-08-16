@@ -31,6 +31,7 @@ available_functions = types.Tool(
         schema_run_python_file
     ]
 )
+
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
