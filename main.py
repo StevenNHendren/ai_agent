@@ -105,24 +105,24 @@ def main():
         sys.exit(1)
     x = response.usage_metadata.prompt_token_count
     y = response.usage_metadata.candidates_token_count
-    calls = response.function_calls
-    if calls != None:
-        for call in calls:
-            fc = genai.types.FunctionCall(
-                name=call.name,
-                args=call.args
-            )  
+    #calls = response.function_calls
+    #if calls != None:
+        #for call in calls:
+            #fc = genai.types.FunctionCall(
+            #    name=call.name,
+            #    args=call.args
+            #)  
             #print(call.args)
             #print(f"Calling function: {fc.name}({fc.args}) \n")
-            if (len(sys.argv) > 2):
-                if (sys.argv[2] == "--verbose"):
-                    function_call_result = call_function(fc, verbose=True)
-                    print(f"-> {function_call_result.parts[0].function_response.response}")  
-                else:
-                    function_call_result = call_function(fc)
-            if function_call_result.parts[0].function_response.response == None:
-                raise Exception(f"fatal error executing function {function_call_part.name}")
-            function_responses.append(function_call_result.parts[0].function_response.response)
+            #if (len(sys.argv) > 2):
+            #    if (sys.argv[2] == "--verbose"):
+            #        function_call_result = call_function(fc, verbose=True)
+            #        print(f"-> {function_call_result.parts[0].function_response.response}")  
+            #    else:
+            #        function_call_result = call_function(fc)
+            #if function_call_result.parts[0].function_response.response == None:
+            #    raise Exception(f"fatal error executing function {function_call_part.name}")
+            #function_responses.append(function_call_result.parts[0].function_response.response)
     # After collecting function_responses, you need to:
 
     # Add the function call and responses to the conversation
