@@ -1,5 +1,5 @@
 import os
-from functions.config import *
+from config import *
 from google import genai
 from google.genai import types
 
