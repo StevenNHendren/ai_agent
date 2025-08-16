@@ -61,8 +61,7 @@ def generate_content(client, messages, verbose):
     messages.append(types.Content(role="function", parts=function_responses))
 
     # Make another call to get the final response
-    #final_response = client.models.generate_content(
-    final_response = generate_content(
+    final_response = client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
         config=types.GenerateContentConfig(
@@ -93,7 +92,7 @@ def main():
             messages = [
             types.Content(role="user", parts=[types.Part(text=user_prompt)]),
             ]
-            response = client.models.generate_content(
+            response = generate_content(
             model="gemini-2.0-flash-001",
             contents=messages,
             config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt)
