@@ -30,7 +30,7 @@ available_functions = types.Tool(
         schema_write_file,
         schema_run_python_file
     ]
-
+)
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
@@ -87,7 +87,7 @@ def main():
     client = genai.Client(api_key=api_key)
     function_responses = []
 
-    )
+
     if (len(sys.argv) > 1):
         user_prompt = sys.argv[1]
         if (user_prompt != ""):
