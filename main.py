@@ -92,10 +92,14 @@ def main():
             messages = [
             types.Content(role="user", parts=[types.Part(text=user_prompt)]),
             ]
+            VerboseOutput = False
+            if (len(sys.argv) > 2):
+                if (sys.argv[2] == "--verbose"):
+                    VerboseOutput = True
             response = generate_content(
-            model="gemini-2.0-flash-001",
-            contents=messages,
-            config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt)
+            client,
+            messages,
+            VerboseOutput)
             )
         else:
             print("Error: prompt not provided")
