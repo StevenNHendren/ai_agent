@@ -23,6 +23,54 @@ When a user asks a question or makes a request, make a function call plan. You c
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
 """
 
+def generate_content(client, messages, verbose):
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=messages,
+        config=types.GenerateContentConfig(
+            tools=[available_functions], system_instruction=system_prompt
+        ),
+    )
+    if verbose:
+        print("Prompt tokens:", response.usage_metadata.prompt_token_count)
+        print("Response tokens:", response.usage_metadata.candidates_token_count)
+
+    if not response.function_calls:
+        print(response.text)
+        return response.text
+
+    function_responses = []
+    for function_call_part in response.function_calls:
+        function_call_result = call_function(function_call_part, verbose)
+        if (
+            not function_call_result.parts
+            or not function_call_result.parts[0].function_response
+        ):
+            raise Exception("empty function call result")
+        if verbose:
+            print(f"-> {function_call_result.parts[0].function_response.response}")
+        function_responses.append(function_call_result.parts[0])
+
+    if not function_responses:
+        raise Exception("no function responses generated, exiting.")
+
+    # Add the assistant's function calls to the conversation
+    messages.append(types.Content(role="model", parts=response.function_calls))
+    
+    # Add the function responses to the conversation
+    messages.append(types.Content(role="function", parts=function_responses))
+
+    # Make another call to get the final response
+    final_response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=messages,
+        config=types.GenerateContentConfig(
+            tools=[available_functions], system_instruction=system_prompt
+        ),
+    )
+    
+    print(final_response.text)
+    return final_response.text
 
 def main():
     print("Hello from ai-agent!")
@@ -64,8 +112,8 @@ def main():
                 name=call.name,
                 args=call.args
             )  
-            print(call.args)
-            print(f"Calling function: {fc.name}({fc.args}) \n")
+            #print(call.args)
+            #print(f"Calling function: {fc.name}({fc.args}) \n")
             if (len(sys.argv) > 2):
                 if (sys.argv[2] == "--verbose"):
                     function_call_result = call_function(fc, verbose=True)
@@ -78,25 +126,25 @@ def main():
     # After collecting function_responses, you need to:
 
     # Add the function call and responses to the conversation
-    messages.append(types.Content(role="model", parts=response.function_calls))
-    messages.append(types.Content(role="function", parts=function_responses))
+    #messages.append(types.Content(role="model", parts=response.function_calls))
+    #messages.append(types.Content(role="function", parts=function_responses))
 
     # Make another call to get the final response
-    final_response = client.models.generate_content(
-        model="gemini-2.0-flash-001",
-        contents=messages,
-        config=types.GenerateContentConfig(
-            tools=[available_functions], system_instruction=system_prompt
-        ),
-    )
+    #final_response = client.models.generate_content(
+    #    model="gemini-2.0-flash-001",
+    #    contents=messages,
+    #    config=types.GenerateContentConfig(
+    #        tools=[available_functions], system_instruction=system_prompt
+    #    ),
+    #)
     #print.final_response.text
     # Return or print the final response
-    return final_response.text
-    if (len(sys.argv) > 2):
-        if (sys.argv[2] == "--verbose"):
-            print (f"User prompt: {user_prompt}")
-            print(f"Prompt tokens: {x}")
-            print(f"Response tokens: {y}")
+    #return final_response.text
+    #if (len(sys.argv) > 2):
+    #    if (sys.argv[2] == "--verbose"):
+    #        print (f"User prompt: {user_prompt}")
+    #        print(f"Prompt tokens: {x}")
+    #        print(f"Response tokens: {y}")
 
 if __name__ == "__main__":
     main()
