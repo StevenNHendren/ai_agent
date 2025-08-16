@@ -61,7 +61,8 @@ def generate_content(client, messages, verbose):
     messages.append(types.Content(role="function", parts=function_responses))
 
     # Make another call to get the final response
-    final_response = client.models.generate_content(
+    #final_response = client.models.generate_content(
+    final_response = generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
         config=types.GenerateContentConfig(
