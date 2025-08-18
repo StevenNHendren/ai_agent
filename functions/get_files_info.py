@@ -1,6 +1,28 @@
 import os
-from google import genai
 from google.genai import types
+
+
+def get_files_info(working_directory, directory="."):
+    abs_working_dir = os.path.abspath(working_directory)
+    target_dir = os.path.abspath(os.path.join(working_directory, directory))
+    if not target_dir.startswith(abs_working_dir):
+        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
+    if not os.path.isdir(target_dir):
+        return f'Error: "{directory}" is not a directory'
+    try:
+        files_info = []
+        for filename in os.listdir(target_dir):
+            filepath = os.path.join(target_dir, filename)
+            file_size = 0
+            is_dir = os.path.isdir(filepath)
+            file_size = os.path.getsize(filepath)
+            files_info.append(
+                f"- {filename}: file_size={file_size} bytes, is_dir={is_dir}"
+            )
+        return "\n".join(files_info)
+    except Exception as e:
+        return f"Error listing files: {e}"
+
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
@@ -15,41 +37,4 @@ schema_get_files_info = types.FunctionDeclaration(
         },
     ),
 )
-
-def get_files_info(working_directory, directory="."):
-    retstring = ""
-    abs_p_wd = os.path.abspath(working_directory)
-
-    my_dir = os.path.join(working_directory, directory)
-
-    abs_p_d = os.path.abspath(my_dir)
-    if abs_p_d.startswith(abs_p_wd):
-        my_dir = os.path.join(working_directory, directory)
-        if os.path.exists(my_dir):
-            if os.path.isdir(my_dir):
-                items = os.listdir(my_dir)
-                if len(items) > 0:
-                    retstring = "Result for current directory:\n"
-                    for item in items:
-
-                        try:
-                            is_dir = os.path.isdir(os.path.join(my_dir, item))
-
-                            fs = os.path.getsize(os.path.join(my_dir, item))
-
-                            fn= str(item)
-                       
-                            retstring += f" - {fn}: file_size={fs} bytes, is_dir={is_dir}\n"
-                        except OSError:
-                            return f"Error: cannot get {item} size\n"
-                else:
-                    return f"Error: no items found in {directory}\n"
-            else:
-                return f'Error: "{directory}" is not a directory\n'        
-        else:
-            f'Error: "{directory}" does not exist\n'
-    else:
-        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory\n'
-
-    return retstring
 
