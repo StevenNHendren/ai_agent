@@ -40,8 +40,9 @@ def main():
         try:
             ret = generate_content(client, messages, verbose)
             if isinstance(ret, str):
-                print(ret)
-                break
+                if "Final response:" in ret:
+                    print(ret)
+                    break
             i_count += 1
         except Exception as e:
             print(f"Error: {e}\n")
