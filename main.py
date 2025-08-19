@@ -35,8 +35,17 @@ def main():
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
 
-    generate_content(client, messages, verbose)
-
+    i_count = 0
+    while i_count < 20:
+        try:
+            ret = generate_content(client, messages, verbose)
+            if isinstance(ret, str):
+                print(ret)
+                break
+            i_count += 1
+        except Exception as e:
+            print(f"Error: {e}\n")
+            sys.exit(1)
 
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
