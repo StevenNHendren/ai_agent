@@ -49,7 +49,9 @@ def generate_content(client, messages, verbose):
     if verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
         print("Response tokens:", response.usage_metadata.candidates_token_count)
-
+    if response.candidates:
+        for candidate in response.candidates:
+            messages.append(candidate.content)
     if not response.function_calls:
         return response.text
 
@@ -67,7 +69,12 @@ def generate_content(client, messages, verbose):
 
     if not function_responses:
         raise Exception("no function responses generated, exiting.")
-
+    for function_response in function_responses:
+        content_message = types.Content(
+        role="user",
+        parts=[function_response]
+        )
+        messages.append(content_message)
 
 if __name__ == "__main__":
     main()
