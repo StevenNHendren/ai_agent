@@ -3,7 +3,7 @@ import os
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
-
+import time
 from prompts import system_prompt
 from call_function import call_function, available_functions
 
@@ -38,6 +38,7 @@ def main():
     i_count = 0
     while i_count < 20:
         try:
+            time.sleep(1)
             ret = generate_content(client, messages, verbose)
             if isinstance(ret, str):
                 if "Final response:" in ret:
@@ -45,8 +46,13 @@ def main():
                     break
             i_count += 1
         except Exception as e:
-            print(f"Error: {e}\n")
-            sys.exit(1)
+            if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                print("Rate limit hit, waiting before retry...")
+                time.sleep(2)  # Wait 2 seconds
+                continue  # or break, depending on your preference
+            else:
+                print(f"Error: {e}")
+                break
 
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
